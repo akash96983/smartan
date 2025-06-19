@@ -1,57 +1,44 @@
-# Smartan: MediaPipe Pose Analysis Flutter App
+# Smartan: Keypoints Detection Flutter App
 
 ## Overview
-A production-ready Flutter app for capturing images, extracting body keypoints using a backend (Node.js with MediaPipe), storing results locally (SQLite), and syncing images/keypoints to Firebase (Firestore & Storage) and Cloudinary.
+Smartan is a Flutter app for detecting human pose keypoints in images using Google ML Kit (on-device, no backend required). Results are saved locally and can be synced to the cloud. The UI is modern, simple, and production-ready.
 
 ## Features
-- Capture or select images
-- Send images to backend for keypoints extraction
-- Store keypoints, timestamp, and image path in SQLite
-- Upload images to Cloudinary
-- Sync keypoints and image URLs to Firestore
-- View history of all entries with thumbnails and details
-- Robust error handling and logging (local only)
+- **Local keypoint detection**: Uses Google ML Kit for fast, private, on-device pose detection.
+- **Save locally**: Every detection (image, keypoints JSON, timestamp) is saved to SQLite with one tap.
+- **History**: View all runs with thumbnails, JSON preview, and details.
+- **Sync to cloud**: Sync any entry to Cloudinary (image) and Firestore (keypoints+image URL) from the history page.
+- **Delete**: Remove any entry from local storage.
+- **Overlay always matches image**: Keypoints and skeleton are always perfectly aligned and never exceed the image bounds.
+- **Modern, simple UI**: Clean navigation, fixed Save button, and responsive design.
+
+## Workflow
+1. **Detect**: Capture or select an image, detect keypoints locally.
+2. **Save locally**: Tap the Save button (fixed at the bottom) to store the result in SQLite.
+3. **View in History**: See all saved runs, with options to view details, sync, or delete.
+4. **Sync online**: Sync to Cloudinary/Firestore only when you choose.
 
 ## Tech Stack
 - Flutter (Stable)
+- Google ML Kit (Pose Detection)
 - SQLite (sqflite)
-- Firebase Firestore & Storage
-- Cloudinary (for image storage)
-- Node.js backend (for MediaPipe keypoints extraction)
-
-## Folder Structure
-```
-lib/
-  main.dart
-  models/
-    keypoint_entry.dart
-  screens/
-    camera_screen.dart
-    history_screen.dart
-    details_screen.dart
-  services/
-    api_service.dart
-    cloudinary_service.dart
-    firebase_service.dart
-    db_service.dart
-    logger_service.dart
-  widgets/
-    image_thumbnail.dart
-```
+- Cloudinary (image sync)
+- Firebase Firestore (keypoints sync)
 
 ## Setup Instructions
-1. **Flutter**: Install dependencies with `flutter pub get`.
-2. **Firebase**: Add your `google-services.json` to `android/app/` and configure Firestore/Storage.
-3. **Cloudinary**: Use provided credentials for image upload.
-4. **Backend**: Set the backend endpoint in `api_service.dart` when available.
+1. **Clone the repo** and run `flutter pub get`.
+2. **Add your `google-services.json`** to `android/app/` for Firebase.
+3. **Configure Cloudinary credentials** in `cloudinary_service.dart`.
+4. **Run the app**: `flutter run`
+
+## UI/UX Highlights
+- Home: Gallery/Camera buttons, image preview with perfectly aligned overlay, fixed Save button.
+- History: Card-based list, details, sync, and delete actions.
+- All overlays are clipped to the image, never exceeding bounds.
 
 ## Error Handling
-- All errors (network, DB, logic) are logged locally using `logger_service.dart`.
+- All errors are logged locally.
 - No error logs are sent to Firestore.
 
-## UI/UX
-- Simple, clean Material UI.
-
-## To Do
-- [ ] Implement all features as per requirements
-- [ ] Polish and test for production
+## License
+MIT
