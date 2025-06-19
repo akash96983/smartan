@@ -195,6 +195,7 @@ class KeypointsPainter extends CustomPainter {
     [PoseLandmarkType.nose, PoseLandmarkType.leftEye],
     [PoseLandmarkType.nose, PoseLandmarkType.rightEye],
   ];
+  
 
   @override
   void paint(Canvas canvas, Size size) {
